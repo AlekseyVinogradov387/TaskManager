@@ -1,0 +1,14 @@
+D:\c#projects\ToDoListNew\bin\Debug\net10.0\ToDoListNew.exe
+D:\c#projects\ToDoListNew\bin\Debug\net10.0\ToDoListNew.deps.json
+D:\c#projects\ToDoListNew\bin\Debug\net10.0\ToDoListNew.runtimeconfig.json
+D:\c#projects\ToDoListNew\bin\Debug\net10.0\ToDoListNew.dll
+D:\c#projects\ToDoListNew\bin\Debug\net10.0\ToDoListNew.pdb
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.GeneratedMSBuildEditorConfig.editorconfig
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.AssemblyInfoInputs.cache
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.AssemblyInfo.cs
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.csproj.CoreCompileInputs.cache
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.dll
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\refint\ToDoListNew.dll
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.pdb
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ToDoListNew.genruntimeconfig.cache
+D:\c#projects\ToDoListNew\obj\Debug\net10.0\ref\ToDoListNew.dll
