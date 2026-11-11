@@ -4,17 +4,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        // var myStruct = new TodoItemStruct { Id = 1, Title = "Оригинал" };
-        // ModifyStruct(myStruct);
-        // Console.WriteLine(myStruct.Title);
-
-        // var log1 = new TaskLogEntry(1, "Добавить", DateTime.Now);
-        // var log2 = new TaskLogEntry(1, "Добавить", log1.Timestamp);
-        // Console.WriteLine(log1 == log2);
-
-        List<TodoItem> tasks = new List<TodoItem>();
+        Dictionary<int, TodoItem> tasks = new Dictionary<int, TodoItem>();
         List<TaskLogEntry> logs = new List<TaskLogEntry>();
-        int currentId = 0;
+        int currentId = 1;
         bool isRunning = true;
         while (isRunning)
         {
@@ -57,7 +49,6 @@ class Program
                         Console.WriteLine("До свидания");
                         isRunning = false;
                         break;
-
                     default:
                         Console.WriteLine("Такой пункт меню отсутствует");
                         break;
@@ -86,7 +77,7 @@ class Program
         Console.WriteLine("");
         Console.WriteLine("");
     }
-    static bool AddTask(List<TodoItem> tasks, List<TaskLogEntry> logs, int currentId)
+    static bool AddTask(Dictionary<int, TodoItem> tasks, List<TaskLogEntry> logs, int currentId)
     {
         Console.WriteLine("Введите название задачи");
         string input = Console.ReadLine() ?? "";
@@ -101,7 +92,7 @@ class Program
                     try
                     {
                         TodoItem task = new TodoItem(currentId, input);
-                        tasks.Add(task);
+                        tasks.Add(currentId, task);
                         TaskLogEntry log = new TaskLogEntry(currentId, "Добавить задачу", DateTime.Now);
                         logs.Add(log);
                         Console.WriteLine("Задача добавлена!");
@@ -119,7 +110,7 @@ class Program
                         if (DateTime.TryParse(Console.ReadLine(), out DateTime date))
                         {
                             DeadlineTask task = new DeadlineTask(currentId, input, date);
-                            tasks.Add(task);
+                            tasks.Add(currentId, task);
                             TaskLogEntry log = new TaskLogEntry(currentId, "Добавить задачу с дедлайном", DateTime.Now);
                             logs.Add(log);
                             Console.WriteLine("Задача с дедлайном добавлена!");
@@ -147,7 +138,7 @@ class Program
             return false;
         }
     }
-    static void ShowTasks(List<TodoItem> tasks)
+    static void ShowTasks(Dictionary<int, TodoItem> tasks)
     {
         if (tasks.Count == 0)
         {
@@ -155,13 +146,13 @@ class Program
         }
         else
         {
-            foreach (TodoItem task in tasks)
+            foreach (TodoItem task in tasks.Values)
             {
                 Console.WriteLine(task.Describe());
             }
         }
     }
-    static void MarkTask(List<TodoItem> tasks)
+    static void MarkTask(Dictionary<int, TodoItem> tasks)
     {
         Console.WriteLine("Введите Id задачи");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -181,7 +172,7 @@ class Program
             Console.WriteLine("Ошибка: введите число");
         }
     }
-    static void DeleteTask(List<TodoItem> tasks, List<TaskLogEntry> logs)
+    static void DeleteTask(Dictionary<int, TodoItem> tasks, List<TaskLogEntry> logs)
     {
         if (tasks.Count == 0)
         {
@@ -198,7 +189,7 @@ class Program
                     Console.WriteLine("Задача с таким Id не найдена");
                     return;
                 }
-                tasks.Remove(task);
+                tasks.Remove(id);
                 TaskLogEntry log = new TaskLogEntry(task.Id, "Удалить задачу", DateTime.Now);
                 logs.Add(log);
                 Console.WriteLine("Задача удалена");
@@ -210,7 +201,7 @@ class Program
             }
         }
     }
-    static void ReopenTask(List<TodoItem> tasks)
+    static void ReopenTask(Dictionary<int, TodoItem> tasks)
     {
         Console.WriteLine("Введите Id задачи");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -229,7 +220,7 @@ class Program
             Console.WriteLine("Ошибка: введите число");
         }
     }
-    static void RenameTask(List<TodoItem> tasks, List<TaskLogEntry> logs)
+    static void RenameTask(Dictionary<int, TodoItem> tasks, List<TaskLogEntry> logs)
     {
         Console.WriteLine("Введите Id задачи для переименования");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -259,10 +250,10 @@ class Program
             Console.WriteLine("Введите число");
         }
     }
-    static void ShowReminders(List<TodoItem> tasks)
+    static void ShowReminders(Dictionary<int, TodoItem> tasks)
     {
         bool found = false;
-        foreach (TodoItem task in tasks)
+        foreach (TodoItem task in tasks.Values)
         {
             if (task is INotifiable notifiable)
             {
@@ -272,7 +263,7 @@ class Program
         }
         if (!found) Console.WriteLine("Напоминаний нет");
     }
-    static void CancelTask(List<TodoItem> tasks)
+    static void CancelTask(Dictionary<int, TodoItem> tasks)
     {
         Console.WriteLine("Введите Id задачи");
         if (int.TryParse(Console.ReadLine(), out int id))
@@ -306,14 +297,11 @@ class Program
             }
         }
     }
-    static TodoItem? FindTaskById(List<TodoItem> tasks, int id)
+    static TodoItem? FindTaskById(Dictionary<int, TodoItem> tasks, int id)
     {
-        foreach (TodoItem task in tasks)
+        if (tasks.TryGetValue(id, out TodoItem? task))
         {
-            if (task.Id == id)
-            {
-                return task;
-            }
+            return task;
         }
         return null;
     }
